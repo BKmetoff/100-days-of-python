@@ -71,12 +71,13 @@ def get_operation(opr):
 
 
 def validate_input(input_type, user_input):
-    if input_type == "int":
-        return user_input in string.digits
-    elif input_type == "opr":
-        return user_input in ["+", "-", "*", "/"]
-    elif input_type == "flow":
-        return user_input in ["y", "n"]
+    validations = {
+        "int": user_input in string.digits,
+        "opr": user_input in ["+", "-", "*", "/"],
+        "flow": user_input in ["y", "n"]
+    }
+
+    return validations.get(input_type)
 
 
 def exectute():
