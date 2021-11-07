@@ -42,15 +42,6 @@ def encrypt_or_decrypt(word, step, operation):
     return result
 
 
-def verify_input(user_input):
-    input_options = input_types()
-    
-    if user_input == input_options[1]:
-        
-    
-    return ''
-
-
 def exectute():
     encryption_operations = operations()
     input_options = input_types()
