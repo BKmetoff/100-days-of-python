@@ -156,7 +156,7 @@ class CoffeeMachine:
         self._prompt(messages['profit'], self._coin_collector.get_profit())
 
     #   start
-    def _start(self):
+    def start(self):
         self._prompt(messages['intro'])
 
         while self._continue_ordering:
