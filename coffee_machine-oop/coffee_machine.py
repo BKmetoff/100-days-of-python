@@ -1,3 +1,4 @@
+from ruamel.yaml import YAML
 from utils import coins, beverages, initial_resources, messages, ui_menu, additional_options, boolean_choice
 from coin_collector import CoinCollector
 from resource import Resource
@@ -23,6 +24,7 @@ class CoffeeMachine:
         self._validator = Validator()
         self._continue_ordering = True
         self._selected_beverage = {}
+        self._prompter = Prompt()
         self._resources = {
             'water': Resource(initial_resources[0]['type'],
                               initial_resources[0]['amount']),
@@ -32,13 +34,11 @@ class CoffeeMachine:
                                initial_resources[2]['amount'])
         }
 
-        self._start()
-
     def _prompt(self, generic_copy, calculated_copy=None, is_error=False):
         if is_error:
-            print(Prompt().error(generic_copy))
+            print(self._prompter.error(generic_copy))
         else:
-            print(Prompt().say(generic_copy, calculated_copy))
+            print(self._prompter.say(generic_copy, calculated_copy))
 
     def _enforce_validation(
         self,
@@ -55,8 +55,8 @@ class CoffeeMachine:
         """
 
         choice = ''
-        input_text = '' if input_prompt == None else input_prompt
-        ui_text = '' if ui_message == None else ui_message
+        input_text = '' if input_prompt is None else input_prompt
+        ui_text = '' if ui_message is None else ui_message
 
         self._prompt(ui_text)
         if user_input == None:
@@ -74,7 +74,7 @@ class CoffeeMachine:
     #   ask user to select option
     def _select_beverage(self):
         available_beverages = '/'.join(
-            [beverages[b]['name'] for b in beverages]
+            (beverages[b]['name'] for b in beverages)
         )
 
         choice = self._enforce_validation(
@@ -178,4 +178,6 @@ class CoffeeMachine:
         quit()
 
 
-CoffeeMachine()
+if __name__ == '__main__':
+    machine = CoffeeMachine()
+    machine.start()

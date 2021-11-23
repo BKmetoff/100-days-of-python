@@ -1,6 +1,4 @@
 class Validator:
-    def __init__(self):
-        pass
 
     def valid_option(self, user_input, options):
         if user_input not in options:
